@@ -15,19 +15,39 @@ namespace ContactManagerProject
         private Button searchButton;
         private ListBox contactsListBox;
 
+        private readonly string _namePlaceholder = "Имя";
+        private readonly string _phonePlaceholder = "Телефон";
+        private readonly string _searchPlaceholder = "Поиск";
+
         public ContactForm()
         {
             this.Text = "Управление контактами";
             this.Width = 500;
             this.Height = 400;
 
-            nameTextBox = new TextBox { Location = new Point(10, 10), Width = 150 };
-            phoneNumberTextBox = new TextBox { Location = new Point(170, 10), Width = 150 };
-            addContactButton = new Button { Location = new Point(10, 40), Text = "Добавить", Width = 100 };
-            removeContactButton = new Button { Location = new Point(120, 40), Text = "Удалить", Width = 100 };
-            searchTextBox = new TextBox { Location = new Point(10, 70), Width = 200 };
-            searchButton = new Button { Location = new Point(220, 70), Text = "Искать", Width = 80 };
-            contactsListBox = new ListBox { Location = new Point(10, 100), Width = 450, Height = 200 };
+            nameTextBox = new TextBox { Location = new Point(10, 10), Width = 150, TabIndex = 2 };
+            nameTextBox.Text = _namePlaceholder;
+            nameTextBox.ForeColor = Color.Gray;
+            nameTextBox.Enter += TextBox_Enter;
+            nameTextBox.Leave += TextBox_Leave;
+
+            phoneNumberTextBox = new TextBox { Location = new Point(170, 10), Width = 150, TabIndex = 3 };
+            phoneNumberTextBox.Text = _phonePlaceholder;
+            phoneNumberTextBox.ForeColor = Color.Gray;
+            phoneNumberTextBox.Enter += TextBox_Enter;
+            phoneNumberTextBox.Leave += TextBox_Leave;
+
+            addContactButton = new Button { Location = new Point(10, 40), Text = "Добавить", Width = 100, TabIndex = 0 };
+            removeContactButton = new Button { Location = new Point(120, 40), Text = "Удалить", Width = 100, TabIndex = 1 };
+
+            searchTextBox = new TextBox { Location = new Point(10, 70), Width = 200, TabIndex = 4 };
+            searchTextBox.Text = _searchPlaceholder;
+            searchTextBox.ForeColor = Color.Gray;
+            searchTextBox.Enter += TextBox_Enter;
+            searchTextBox.Leave += TextBox_Leave;
+
+            searchButton = new Button { Location = new Point(220, 70), Text = "Искать", Width = 80, TabIndex = 5 };
+            contactsListBox = new ListBox { Location = new Point(10, 100), Width = 450, Height = 200, TabIndex = 6 };
 
             addContactButton.Click += AddContactButton_Click;
             removeContactButton.Click += RemoveContactButton_Click;
@@ -45,6 +65,34 @@ namespace ContactManagerProject
             UpdateContactsList();
         }
 
+        private void TextBox_Enter(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == GetPlaceholderForTextBox(textBox))
+            {
+                textBox.Text = "";
+                textBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void TextBox_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = GetPlaceholderForTextBox(textBox);
+                textBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private string GetPlaceholderForTextBox(TextBox textBox)
+        {
+            if (textBox == nameTextBox) return _namePlaceholder;
+            if (textBox == phoneNumberTextBox) return _phonePlaceholder;
+            if (textBox == searchTextBox) return _searchPlaceholder;
+            return "";
+        }
+
         private void UpdateContactsList()
         {
             contactsListBox.Items.Clear();
@@ -56,7 +104,10 @@ namespace ContactManagerProject
 
         private void AddContactButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(nameTextBox.Text) || string.IsNullOrEmpty(phoneNumberTextBox.Text))
+            if (string.IsNullOrWhiteSpace(nameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(phoneNumberTextBox.Text) ||
+                nameTextBox.Text == _namePlaceholder ||
+                phoneNumberTextBox.Text == _phonePlaceholder)
             {
                 MessageBox.Show("Заполните все поля!");
                 return;
@@ -65,8 +116,10 @@ namespace ContactManagerProject
             try
             {
                 contactManager.AddContact(new Contact(nameTextBox.Text, phoneNumberTextBox.Text));
-                nameTextBox.Clear();
-                phoneNumberTextBox.Clear();
+                nameTextBox.Text = _namePlaceholder;
+                nameTextBox.ForeColor = Color.Gray;
+                phoneNumberTextBox.Text = _phonePlaceholder;
+                phoneNumberTextBox.ForeColor = Color.Gray;
                 UpdateContactsList();
             }
             catch (Exception ex)
@@ -100,7 +153,7 @@ namespace ContactManagerProject
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(searchTextBox.Text))
+            if (string.IsNullOrWhiteSpace(searchTextBox.Text) || searchTextBox.Text == _searchPlaceholder)
             {
                 UpdateContactsList();
                 return;
