@@ -37,6 +37,7 @@ namespace ContactManagerProject
 
             nameTextBox = new TextBox
             {
+                Name = "nameTextBox",
                 Location = new Point(10, 10),
                 Width = 150,
                 TabIndex = 2,
@@ -48,6 +49,7 @@ namespace ContactManagerProject
 
             phoneNumberTextBox = new TextBox
             {
+                Name = "phoneNumberTextBox",
                 Location = new Point(170, 10),
                 Width = 150,
                 TabIndex = 3,
@@ -59,6 +61,7 @@ namespace ContactManagerProject
 
             groupComboBox = new ComboBox
             {
+                Name = "groupComboBox",
                 Location = new Point(330, 10),
                 Width = 140,
                 TabIndex = 4,
@@ -67,6 +70,7 @@ namespace ContactManagerProject
 
             addContactButton = new Button
             {
+                Name = "addContactButton",
                 Location = new Point(480, 10),
                 Text = "Добавить контакт",
                 Width = 150,
@@ -83,6 +87,7 @@ namespace ContactManagerProject
 
             newGroupTextBox = new TextBox
             {
+                Name = "newGroupTextBox",
                 Location = new Point(240, 55),
                 Width = 200,
                 TabIndex = 5,
@@ -94,6 +99,7 @@ namespace ContactManagerProject
 
             addGroupButton = new Button
             {
+                Name = "addGroupButton",
                 Location = new Point(450, 55),
                 Text = "Добавить группу",
                 Width = 130,
@@ -110,6 +116,7 @@ namespace ContactManagerProject
 
             deleteGroupComboBox = new ComboBox
             {
+                Name = "deleteGroupComboBox",
                 Location = new Point(210, 90),
                 Width = 200,
                 DropDownStyle = ComboBoxStyle.DropDownList
@@ -117,6 +124,7 @@ namespace ContactManagerProject
 
             removeGroupButton = new Button
             {
+                Name = "removeGroupButton",
                 Location = new Point(420, 90),
                 Text = "Удалить группу",
                 Width = 130
@@ -125,6 +133,7 @@ namespace ContactManagerProject
 
             searchTextBox = new TextBox
             {
+                Name = "searchTextBox",
                 Location = new Point(10, 140),
                 Width = 200,
                 TabIndex = 7,
@@ -136,6 +145,7 @@ namespace ContactManagerProject
 
             searchButton = new Button
             {
+                Name = "searchButton",
                 Location = new Point(220, 140),
                 Text = "Искать",
                 Width = 80,
@@ -145,6 +155,7 @@ namespace ContactManagerProject
 
             filterGroupComboBox = new ComboBox
             {
+                Name = "filterGroupComboBox",
                 Location = new Point(310, 140),
                 Width = 160,
                 TabIndex = 9,
@@ -154,6 +165,7 @@ namespace ContactManagerProject
 
             removeContactButton = new Button
             {
+                Name = "removeContactButton",
                 Location = new Point(480, 140),
                 Text = "Удалить контакт",
                 Width = 150,
@@ -163,6 +175,7 @@ namespace ContactManagerProject
 
             contactsListBox = new ListBox
             {
+                Name = "contactsListBox",
                 Location = new Point(10, 175),
                 Width = 650,
                 Height = 240,
